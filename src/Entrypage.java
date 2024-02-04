@@ -1,8 +1,8 @@
 
 public class Entrypage {
     Entrypage() {
-        System.out.printf("%55s", " ");
-        System.out.println(" ______________________________________________");
+        System.out.printf("%56s", " ");
+        System.out.println("______________________________________________");
         System.out.printf("%55s", " ");
 
         System.out.println("|                                              |");
@@ -15,7 +15,6 @@ public class Entrypage {
         System.out.printf("%55s", " ");
 
         System.out.println("|______________________________________________|");
-        System.out.println("ENTRY : 1 |  REPORT : 2 | ADDITION : 3 | WAGES : 4");
     }
 
 }

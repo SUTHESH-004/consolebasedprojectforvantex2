@@ -3,60 +3,79 @@ import java.util.*;
 import java.sql.*;
 
 public class Vtxsoft {
-    public static void main(String[] args) throws SQLException {
-        Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) throws Exception {
         Connection con = dbconnection.getconnection();
-        System.out.println("Enter your password");
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
-        // System.out.printf("%80s", " ");
         System.out.println("THE CURRENT DATE IS =" + date);
         System.out.println("THE CURRENT TIME IS =" + time);
-        String display = "select * from employeeinfo;";
+        int emp_id = 0;
+        emp_id = passwordverfication();
+        if (emp_id != 0) {
+            new Entrypage();
+        }
+        System.out.println("Enter the number according to Value");
+        System.out.print("Entry 1 | Enter the 0 to exit");
+        int a = sc.nextInt();
+        if (a == 1) {
+            System.out.print("Manual : 1 | Auto Entry : 2 | Exit : 0");
+            int method = sc.nextInt();
+            if (method == 2) {
+                String query = "select employee_name,employee_id from employeeinfo where posts_id not in(2)";
+                Statement st = con.createStatement();
+                ResultSet rp = st.executeQuery(query);
+                // rp.next();
+                System.out.print("Enter P to present | Enter A to absent ");
+                while (rp.next()) {
+                    String name = rp.getString(1);
+                    System.out.print("is" + name + " Present : ");
+                    String state = sc.next();
+                    String query1 = "insert into attendancesheet values(?,?,?,?);";
+                    PreparedStatement stated = con.prepareStatement(query1);
+                    stated.setInt(1, rp.getInt(2));
+                    stated.setString(2, state);
+                    // String date1 = date;
+                    // Date date1 = date;
+                    stated.setDate(3, java.sql.Date.valueOf(date));
+                    stated.setInt(4, emp_id);
+                    int q = stated.executeUpdate();
+                }
 
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(display);
-        while(rs.next())
-        { 
-        System.out.print(rs.getInt(1)+" ");
-        System.out.print(rs.getString(2));
-        System.out.println();
+            }
+        }
+
     }
-        
 
-        //         System.out.printf("%55s", " ");
-        //         System.out.println(" ______________________________________________");
-        //         System.out.printf("%55s", " ");
+    public static int passwordverfication() throws Exception {
+        Connection con = dbconnection.getconnection();
+        Scanner sc = new Scanner(System.in);
+        String s = "s";
+        int emp_id = 0;
+        while (s.equals("s")) {
+            System.out.println("Enter your Employee_id");
+            emp_id = sc.nextInt();
+            System.out.println("Enter your Password");
+            String pass = sc.next();
+            String query = "select pass from passwordlist where employee_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
 
-        //         System.out.println("|                                              |");
-        //         System.out.printf("%55s", " ");
+            ps.setInt(1, emp_id);
 
-        //         System.out.println("|        WELCOME TO VANTEX SOFT - EMPLOYEE     |");
-        //         System.out.printf("%55s", " ");
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            try {
+                if (rs.getString(1).equals(pass))
+                    break;
+                else
+                    System.out.println("Entered password is wrong");
+            } catch (Exception e) {
+                System.out.println("Entered name or password is incorect please Try again");
+            }
+        }
 
-        //         System.out.println("|                 DATA  BASE                   |");
-        //         System.out.printf("%55s", " ");
+        return emp_id;
 
-        //         System.out.println("|______________________________________________|");
-        // System.out.println("ENTRY : 1 |  REPORT : 2 | ADDITION : 3 | WAGES : 4");
-        // String value = "";
-        // String query = "insert into employeeinfo values(1,'SutheshPravin','2003-1-12','Kunnathur','Tamil Nadu','India',NULL,'2024-1-10',NULL,NULL);";
-        // while (!value.equals("0")) {
-        //     value = sc.next();
-        //     String AOE = "";
-        //     if (value.equals("1")) {
-        //         System.out.println("ATTENDANCE : 1 | OUTPUT ENTRY : 2 ");
-        //         AOE = sc.next();
-        //         if (AOE.equals("1")) {
-        //             System.out.println(" ENTER THE EMPLOYEE ID");
-        //             String an = sc.nextLine();
-
-        //             PreparedStatement dummy = con.prepareStatement(query);
-        //             dummy.executeUpdate();
-        //             // 1System.out.println(rs);
-        //         }
-        //     }
-        // }
-        sc.close();
     }
 }
