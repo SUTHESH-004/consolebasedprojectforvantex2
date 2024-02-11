@@ -9,28 +9,29 @@ public class Vtxsoft {
         Connection con = dbconnection.getconnection();
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
         System.out.println("THE CURRENT DATE IS =" + date);
         System.out.println("THE CURRENT TIME IS =" + time);
-        int emp_id = 0;
-        emp_id = passwordverfication();
-        if (emp_id != 0) {
-            new Entrypage();
-        }
+        int emp_id = passwordverfication();
         System.out.println("Enter the number according to Value");
         System.out.print("Entry 1 | Enter the 0 to exit");
         int a = sc.nextInt();
         if (a == 1) {
-            System.out.print("Manual : 1 | Auto Entry : 2 | Exit : 0");
+            System.out.print(" Entry 1 | Exit : 0");
             int method = sc.nextInt();
             if (method == 2) {
                 String query = "select employee_name,employee_id from employeeinfo where posts_id not in(2)";
                 Statement st = con.createStatement();
                 ResultSet rp = st.executeQuery(query);
                 // rp.next();
-                System.out.print("Enter P to present | Enter A to absent ");
+                System.out.println("Enter P to present | Enter A to absent ");
                 while (rp.next()) {
                     String name = rp.getString(1);
-                    System.out.print("is" + name + " Present : ");
+                    System.out.print("Is" + name + " Present : ");
                     String state = sc.next();
                     String query1 = "insert into attendancesheet values(?,?,?,?);";
                     PreparedStatement stated = con.prepareStatement(query1);
@@ -41,6 +42,7 @@ public class Vtxsoft {
                     stated.setDate(3, java.sql.Date.valueOf(date));
                     stated.setInt(4, emp_id);
                     int q = stated.executeUpdate();
+                    
                 }
 
             }
@@ -74,7 +76,7 @@ public class Vtxsoft {
                 System.out.println("Entered name or password is incorect please Try again");
             }
         }
-
+        sc.close();
         return emp_id;
 
     }

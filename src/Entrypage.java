@@ -1,10 +1,6 @@
 
 public class Entrypage {
-    Entrypage() {
-        System.out.printf("%56s", " ");
-        System.out.println("______________________________________________");
-        System.out.printf("%55s", " ");
-
+        Entrypage(){
         System.out.println("|                                              |");
         System.out.printf("%55s", " ");
 
