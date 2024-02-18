@@ -5,6 +5,7 @@ public class Supervisorview extends scan{
         System.out.println("Welcome! Press the numbers to indicate what you want to do:");
         System.out.println("1. Enter Attendance");
         System.out.println("2. View Reports");
+        System.out.println("3. Output Entry");
         System.out.println("3. Check Employee Details");
         System.out.println("4. Exit");
     }

@@ -1,9 +1,14 @@
 package Sutheshpackage;
+
 import java.sql.SQLException;
 
 import Sutheshpackage.Controller.App;
-public class Main{
-    public static void main(String[] args) throws SQLException{
+import Sutheshpackage.views.Mainview;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+        Mainview a = new Mainview();
+        a.welcomeDisplay();
         App.Start();
     }
-}    
+}
