@@ -22,10 +22,10 @@ public class Supervisor {
                 view.print("Enter a Valid Input");
                 enter(emp_id,position);
                 view.print("Ended succesfully");
-                System.exit(200);
-            }
+                System.exit(200);}
             switch(choice)
             {
+                //attendance enter
                 case 1:{ boolean a=AttendanceDBA.entryStatus(emp_id,position);
                         if(a==true)
                         {
@@ -37,6 +37,7 @@ public class Supervisor {
                         }
 
                     break;}
+                    // report view 
                 case 2:{
                     Employeeinfoview.displayreport(); 
                     int reportchoice = view.getInt();
@@ -72,7 +73,6 @@ public class Supervisor {
                             }
                             break;
                         }
-
                         case 3:{
                             System.out.print("Enter a date (yyyy-MM-dd)  : ");
                             String userInput1 =view.getString();
@@ -102,14 +102,38 @@ public class Supervisor {
                     }
                         break;
                 }
+                // outputentry
                 case 3:{
-                  
-
-
                     
+                   boolean a = AttendanceDBA.enterOutput(emp_id, position);
+                   if(a)
+                   {
+                       System.out.println("Do you want to continue enter 1 and 4 to exit");
+                       int n = view.getInt();
+                       if(n==1)
+                       {
+                        enter(emp_id, position);
+                       }
+                       else
+                       {
+                        System.out.println("exiting the document");
+                        System.exit(200);
+                        }
+                   }
+                   else
+                   {
+                    System.out.print("Attendance is not entered");
+                    enter(emp_id,position);
+                    System.exit(200);
+                   }
+                   break;
+                }
+                case 4:{
+                    System.out.println("System is exiting");
+                    System.exit(200);
                 }
                 }
-                // case 2->
+                
             }
 
     }

@@ -3,7 +3,6 @@ package Sutheshpackage.DBA;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import Sutheshpackage.Modal.attendrep;
 // import Sutheshpackage.Controller.Supervisor;
 import Sutheshpackage.views.Supervisorview;
@@ -44,7 +43,8 @@ public class AttendanceDBA {
             ot.setBoolean(1, true);
             ot.setDate(2, java.sql.Date.valueOf(date));
             ot.setInt(3, emp_id);
-            ot.executeUpdate();
+           int rows= ot.executeUpdate();
+            System.out.println("inserted date rows affected"+rows);
 
         } else {
             String query = "select employee_name from employeeinfo where employee_id= ?";
@@ -126,24 +126,33 @@ public class AttendanceDBA {
         LocalDate date = LocalDate.now();
         view.print("Enter the Output of each person in kgs");
         boolean v = datechecker(date);
-        if (v == true) {
-            String query = "select employee_name,employee_id from employeeinfo where posts_id not in(2)";
-            Statement st = con.createStatement();
-            ResultSet rp = st.executeQuery(query);
+        // false means attendance is entered
+        if (v == false) {
+            // String query = "select e.employee_name,e.employee_id from attendancesheet a join employeeinfo e on whwhere e.posts_id not in(2)and a.dateOfwork in(select dates from datedata)";
+            String query = "select employee_name,e.employee_id from attendancesheet a join employeeinfo e on a.employeeid = e.employee_id where e.posts_id not in(2) and a.dateOfwork in(?);";
+
+            PreparedStatement pss= con.prepareStatement(query);
+            pss.setDate(1,java.sql.Date.valueOf(date));
+            // pss.setDate(1,java.sql.Date.valueOf(date));
+            ResultSet rp =pss.executeQuery(query);
             while (rp.next()) {
                 String name = rp.getString(1);
                 view.print(name + "'/s  Output  :");
                 // String name = rp.getString(1);
-                String out = view.getString();
-                String query1 = "update attendancesheet set OutputPerDay =? where employeeid =?";
+                int out = view.getInt();
+                String query1 = "update attendancesheet set OutputPerDay = ? where dateOfwork in(?) and employeeid=?;";
                 PreparedStatement stated = con.prepareStatement(query1);
-                stated.setString(1, out);
-                stated.setString(2, rp.getString(2));
+                stated.setInt(1,out);
+                stated.setInt(3, rp.getInt(2));
+                stated.setDate(2,java.sql.Date.valueOf(date));
+                
+                int  rows = stated.executeUpdate();
+                System.out.println(rows+ "rows are affected ");
             }
             return true;
         }
         return false;
-
+        
     }
 
 }
