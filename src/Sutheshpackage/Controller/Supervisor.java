@@ -1,10 +1,8 @@
 package Sutheshpackage.Controller;
-
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 import Sutheshpackage.DBA.AttendanceDBA;
 import Sutheshpackage.DBA.Employee_infoDBA;
 import Sutheshpackage.Modal.attendrep;
@@ -26,7 +24,8 @@ public class Supervisor {
             switch(choice)
             {
                 //attendance enter
-                case 1:{ boolean a=AttendanceDBA.entryStatus(emp_id,position);
+                case 1:{ 
+                    boolean a=AttendanceDBA.entryStatus(emp_id,position);
                         if(a==true)
                         {
                             enter(emp_id, position);

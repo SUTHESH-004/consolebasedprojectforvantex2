@@ -5,13 +5,12 @@ import java.util.*;
 import Sutheshpackage.Modal.employee;
 // import Sutheshpackage.DBA.dbconnection;
 import Sutheshpackage.views.scan;
-
 // import com.mysql.cj.xdevapi.Statement;
 
 public class Employee_infoDBA extends scan {
    
     public static ArrayList<employee> employeedetails() throws SQLException {
-        Connection con = dbconnection.getconnection();
+        Connection con = Dbconnection.getconnection();
         String query = "select * from employeeinfo ";
         // Statement s = con.createStatement();
         Statement statement = con.createStatement();

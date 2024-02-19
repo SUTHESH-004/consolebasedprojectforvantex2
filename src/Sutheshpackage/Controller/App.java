@@ -28,7 +28,7 @@ public class App {
                 Supervisorview view = new Supervisorview();
                 view.welcomeSupervisor();
                 Supervisor.enter(idpass.emp_id, position);
-                
+
             }
 
         }

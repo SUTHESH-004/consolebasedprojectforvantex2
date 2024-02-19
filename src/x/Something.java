@@ -1,11 +1,11 @@
 package x;
 import java.sql.*;
 
-import Sutheshpackage.DBA.dbconnection;
+import Sutheshpackage.DBA.Dbconnection;
 
 public class Something {
     public static void main(String[] args) throws Exception {
-        Connection con = dbconnection.getconnection();
+        Connection con = Dbconnection.getconnection();
         String query = "select * from employeeinfo";
         //  lsknjdksn st = con.createStatement();
         PreparedStatement pst = con.prepareStatement(query);

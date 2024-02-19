@@ -5,7 +5,7 @@ public class PostsDBA {
     // @Override
     public int positionChecker(int emp_id){
         try{
-        Connection con = dbconnection.getconnection();
+        Connection con = Dbconnection.getconnection();
         String Query ="select posts_id from employeeinfo where employee_id =? ";
         PreparedStatement ps = con.prepareStatement(Query);
         ps.setInt(1,emp_id);

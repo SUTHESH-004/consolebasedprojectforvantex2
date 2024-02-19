@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class PasswordDBA {
     public boolean passwordverfication(IdPass idPass) throws SQLException {
-            try{Connection con = dbconnection.getconnection();
+            try{Connection con = Dbconnection.getconnection();
             String query = "select pass from passwordlist where employee_id=?";
             PreparedStatement ps = con.prepareStatement(query);
 
